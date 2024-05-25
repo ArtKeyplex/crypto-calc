@@ -1,0 +1,65 @@
+run:
+  go: "1.22"
+  deadline: 2m
+  build-tags:
+    - mock
+    - integration
+linters:
+  enable-all: true
+  disable:
+    - golint
+    - exhaustivestruct
+    - maligned
+    - interfacer
+    - scopelint
+    - ifshort
+    - varcheck
+    - structcheck
+    - deadcode
+    - nosnakecase
+    - varnamelen
+    - tagalign
+    - paralleltest
+    - tagliatelle
+    - exhaustruct
+    - misspell
+    - wsl
+    - nilnil
+    - perfsprint
+    - goerr113
+    - depguard
+    - gosec
+linters-settings:
+  revive:
+    rules:
+      - name: unexported-return
+        disabled: true
+  misspell:
+    locale: US
+  gci:
+    sections:
+      - Standard
+      - Default
+  lll:
+    line-length: 140
+  funlen:
+    lines: 100
+  cyclop:
+    max-complexity: 20
+  exhaustruct:
+    exclude:
+      - '.*cobra\.Command.*'
+issues:
+  exclude-rules:
+    - path: "go.mod"
+      linters:
+        - gomoddirectives
+    - path: (.+)_test.go
+      linters:
+        - gomnd
+        - gci
+        - funlen
+    - path: (.+)(fixtures|fixtures-test).go
+      linters:
+        - gomnd
+        - gosec

@@ -1,0 +1,60 @@
+definitions:
+  entity.ConversionResult:
+    properties:
+      amount:
+        type: number
+      from:
+        type: string
+      result:
+        type: number
+      to:
+        type: string
+    type: object
+  http.ConvertCurrencyRequest:
+    properties:
+      amount:
+        type: number
+      from:
+        type: string
+      to:
+        type: string
+    type: object
+  http.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /convert:
+    post:
+      consumes:
+      - application/json
+      description: Convert currency from one to another
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.ConvertCurrencyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.ConversionResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ErrorResponse'
+      summary: Convert Currency
+      tags:
+      - currency
+swagger: "2.0"

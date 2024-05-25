@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./infra/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+
+  updater:
+    depends_on:
+      - db
+    build:
+      context: .
+    env_file:
+      - .env
+    command: "go run main.go update-rates"
+
+volumes:
+  db-data:

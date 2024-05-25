@@ -1,0 +1,28 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+/.env
+
+# Output of the `go build` command
+bin/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# macOS files
+.DS_Store
